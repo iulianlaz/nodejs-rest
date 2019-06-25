@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/iulianlaz/nodejs-rest#readme",
   "dependencies": {
-    "@types/express": "^4.17.0",
     "express": "^4.17.1",
+    "mongoose": "^5.6.1",
     "typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0"
   }
 }

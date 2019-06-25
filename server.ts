@@ -2,7 +2,6 @@
 import express = require('express');
 
 export class Server {
-
     public app: express.Application;
 
     constructor() {
@@ -12,7 +11,7 @@ export class Server {
     }
 
     private initConfig(): void {
-
+        // TODO
     }
 
     private buildRoutes(): void {

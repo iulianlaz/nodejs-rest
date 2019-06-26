@@ -8,8 +8,10 @@ class Routes {
      * @private
      */
     private _routes = [
-        'order/get',
-        'order/add'
+
+        /* The order matters! If first matches, then stop processing request */
+        'orders/:id',
+        'orders'
     ];
 
     constructor() {

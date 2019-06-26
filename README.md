@@ -17,3 +17,19 @@ npm run tsc
 Start server
 ------------
 node build/index.js
+``````
+
+**API examples**
+Read
+``````
+GET localhost:3000/orders
+``````
+
+Add
+``````
+localhost:3000/orders/add
+{
+	"name": "test1"
+}
+``````
+

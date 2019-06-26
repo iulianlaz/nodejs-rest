@@ -5,8 +5,10 @@ import { Store } from './store';
 
 export class Server {
 
-    private _defaultMethodName = 'get';
+    private _getMethodName = 'get';
     private _getByIdMethodName = 'getById';
+    private _addMethodName = 'add';
+    private _updateMethodName = 'update';
 
     private _allowHTTPMethods = ['POST', 'PUT']
 
@@ -85,9 +87,11 @@ export class Server {
             operationParam = null;
 
         // Set response object for each model in order to send the response back
-        model.setOptions({
-            res: options['res']
-        });
+        model.initModel(
+            {
+                res: options['res']
+            }
+        );
 
         if ((options['splittedRoute'].length > 1)) {
 
@@ -122,7 +126,7 @@ export class Server {
         // Get all
         if (req.method === 'GET') {
             return {
-                modelMethodName: this._defaultMethodName,
+                modelMethodName: this._getMethodName,
                 requestBody: null
             };
         }
@@ -132,7 +136,7 @@ export class Server {
             req.body.id = req.params.id;
 
             return {
-                modelMethodName: 'update',
+                modelMethodName: this._updateMethodName,
                 requestBody: req.body
             }
         }
@@ -140,7 +144,7 @@ export class Server {
         // Create
         if (req.method === 'POST') {
             return {
-                modelMethodName: 'add',
+                modelMethodName: this._addMethodName,
                 requestBody: req.body
             }
         }

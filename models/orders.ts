@@ -10,7 +10,6 @@ export class Orders {
     private static _instance: any = null;
 
     private constructor(store: any) {
-
         this._storeClient = store.getClient();
 
         const orderSchema = new this._storeClient.Schema(this._schema, { versionKey: false });
@@ -23,6 +22,11 @@ export class Orders {
         }
 
         return this._instance;
+    }
+
+    initModel(options: any) {
+
+        this._options = options;
     }
 
     public get() {
@@ -61,10 +65,6 @@ export class Orders {
 
             this._options['res'].send(order)
         });
-    }
-
-    public setOptions(options: Object) {
-        this._options = options;
     }
 }
 

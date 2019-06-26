@@ -20,14 +20,21 @@ node build/index.js
 ``````
 
 **API examples**
+
 Read
 ``````
 GET localhost:3000/orders
 ``````
 
+Read by id
+``````
+GET localhost:3000/orders/<id>
+``````
+
+
 Add
 ``````
-localhost:3000/orders/add
+POST localhost:3000/orders/add
 {
 	"name": "test1"
 }

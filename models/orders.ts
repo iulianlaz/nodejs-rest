@@ -16,6 +16,7 @@ export class Orders {
         this._orderModel = this._storeClient.model('Order',orderSchema);
     }
 
+    // TODO: it works for a single store for now
     static getInstance(store: any) {
         if (!this._instance) {
             this._instance = new Orders(store);

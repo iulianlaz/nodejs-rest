@@ -36,7 +36,6 @@ Add
 ``````
 POST localhost:3000/orders
 {
-	"authorId": "52353453445",
 	"authorName": "Iulian",
 	"location": "Trattoria 20"
 }
@@ -46,8 +45,8 @@ Update by id
 ``````
 PUT localhost:3000/orders/5d147d24d2dcf06fcc45f1c0
 {
-	"authorName": "Iulian",
-    "ocation": "Trattoria 20"
+    "authorName": "Iulian",
+    "location": "Trattoria 20"
 }
 ``````
 

@@ -115,7 +115,9 @@ export class Server {
         if (req.method === 'GET' && operationParam === ':id') {
             return {
                 modelMethodName: AbstractModel.getByIdMethodName,
-                requestBody: req.params.id
+                requestBody: {
+                    id: req.params.id
+                }
             };
         }
 
@@ -127,13 +129,15 @@ export class Server {
             };
         }
 
-        // Update
+        // Update by id
         if ((req.method === 'PUT') && operationParam === ':id') {
-            req.body.id = req.params.id;
 
             return {
-                modelMethodName: AbstractModel.updateMethodName,
-                requestBody: req.body
+                modelMethodName: AbstractModel.updateByIdMethodName,
+                requestBody: {
+                    id: req.params.id,
+                    payload: req.body
+                }
             }
         }
 
@@ -141,7 +145,9 @@ export class Server {
         if (req.method === 'POST') {
             return {
                 modelMethodName: AbstractModel.addMethodName,
-                requestBody: req.body
+                requestBody: {
+                    payload: req.body
+                }
             }
         }
 

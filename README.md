@@ -36,7 +36,18 @@ Add
 ``````
 POST localhost:3000/orders/add
 {
-	"name": "test1"
+	"name": "Test"
 }
 ``````
+
+Update by id
+``````
+PUT localhost:3000/orders/5d147d24d2dcf06fcc45f1c0
+{
+	"name": "Test 2",
+	"description": "Lorem ipsum dolor"
+}
+
+**Models**
+You can easily add an entity CRUD service, by created a new file in models/<your_entiy_name> that should have the same structure as orders.ts
 

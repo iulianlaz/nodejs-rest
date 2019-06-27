@@ -19,7 +19,7 @@ export class Orders extends AbstractModel {
         description: String
     };
 
-    protected _allowMethods:Array<String> = ['get', 'getById', 'add'];
+    protected _allowMethods:Array<String> = ['get', 'getById', 'add', 'updateById'];
 
     protected constructor(store: any) {
         super(store);

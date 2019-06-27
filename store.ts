@@ -7,7 +7,7 @@ export class Store {
     private _client: Object = {};
 
     constructor() {
-        mongoose.connect(this._host, {useNewUrlParser: true});
+        mongoose.connect(this._host, {useNewUrlParser: true, useFindAndModify: false });
 
         var db = mongoose.connection;
         db.on('error', console.error.bind(console, 'connection error:'));

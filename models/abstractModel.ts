@@ -4,6 +4,7 @@ export class AbstractModel {
     static getByIdMethodName:string = 'getById';
     static addMethodName:string = 'add';
     static updateMethodName:string = 'update';
+    static updateByIdMethodName:string = 'updateById';
 
     /**
      * Must be overwritten
@@ -45,6 +46,10 @@ export class AbstractModel {
         this._model = this._storeClient.model(this._modelName, schema);
     }
 
+    /**
+     *
+     * @param options
+     */
     public initOptions(options: any) {
 
         this._options = options;
@@ -68,7 +73,11 @@ export class AbstractModel {
         })
     }
 
-    public getById(entityId: string) {
+    /**
+     *
+     * @param {{id: string}} input
+     */
+    public getById(input: {id: string}) {
 
         if (this._allowMethods.indexOf(AbstractModel.getByIdMethodName) === -1) {
             this._options['res'].send({errorMessage: 'Method not allowed.'});
@@ -76,7 +85,7 @@ export class AbstractModel {
             return;
         }
 
-        this._model.findById(entityId, (err:any, entity:any) => {
+        this._model.findById(input['id'], (err:any, entity:any) => {
             if (err) {
                 this._options['res'].end();
                 return console.error(err);
@@ -86,7 +95,11 @@ export class AbstractModel {
         })
     }
 
-    public add(entityInput: any) {
+    /**
+     *
+     * @param {{payload: string}} input
+     */
+    public add(input: {payload: string}) {
 
         if (this._allowMethods.indexOf(AbstractModel.addMethodName) === -1) {
             this._options['res'].send({errorMessage: 'Method not allowed.'});
@@ -94,10 +107,32 @@ export class AbstractModel {
             return;
         }
 
-        let model = new this._model(entityInput);
+        let model = new this._model(input['payload']);
 
         model.save((err: any, entity: any) => {
             if (err){
+                this._options['res'].end();
+                return console.error(err);
+            }
+
+            this._options['res'].send(entity)
+        });
+    }
+
+    /**
+     *
+     * @param {{id: string; payload: string}} input
+     */
+    public updateById(input: {id: string, payload: string}) {
+
+        if (this._allowMethods.indexOf(AbstractModel.updateByIdMethodName) === -1) {
+            this._options['res'].send({errorMessage: 'Method not allowed.'});
+
+            return;
+        }
+
+        this._model.findByIdAndUpdate(input['id'], input['payload'], {new: true}, (err: any, entity: any) => {
+            if (err) {
                 this._options['res'].end();
                 return console.error(err);
             }

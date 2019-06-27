@@ -51,7 +51,7 @@ export class Server {
 
         for (let route of serverRoutes) {
 
-            // E.g. order/add
+            // E.g. order/:id
             let splittedRoute = route.split('/');
 
             // Load all models business logic
@@ -91,7 +91,7 @@ export class Server {
 
         if ((options['splittedRoute'].length > 1)) {
 
-            // e.g. Format: add/update/delete/:id
+            // e.g. Format: /:id
             operationParam = options['splittedRoute'][1];
         }
 

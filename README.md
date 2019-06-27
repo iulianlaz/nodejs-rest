@@ -50,5 +50,6 @@ PUT localhost:3000/orders/5d147d24d2dcf06fcc45f1c0
 ``````
 
 **Models**
+
 You can easily add an entity CRUD service, by created a new file (e.g. models/<your_entiy_name>) that should have the same structure as orders.ts file.
 

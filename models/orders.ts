@@ -1,71 +1,30 @@
-export class Orders {
-    private _schema = {
-        name: String
+import {AbstractModel} from './abstractModel';
+
+export class Orders extends AbstractModel {
+
+    /**
+     * Must be overwritten
+     * @type {null}
+     * @private
+     */
+    protected _modelName = 'Order';
+
+    /**
+     * Must be overwritten
+     * @type {{}}
+     * @private
+     */
+    protected _schema: Object = {
+        name: String,
+        description: String
     };
 
-    private _storeClient: any;
-    private _orderModel: any;
-    private _options: any;
+    protected _allowMethods:Array<String> = ['get', 'getById', 'add'];
 
-    private static _instance: any = null;
+    protected constructor(store: any) {
+        super(store);
 
-    private constructor(store: any) {
-        this._storeClient = store.getClient();
-
-        const orderSchema = new this._storeClient.Schema(this._schema, { versionKey: false });
-        this._orderModel = this._storeClient.model('Order',orderSchema);
-    }
-
-    // TODO: it works for a single store for now
-    static getInstance(store: any) {
-        if (!this._instance) {
-            this._instance = new Orders(store);
-        }
-
-        return this._instance;
-    }
-
-    initModel(options: any) {
-
-        this._options = options;
-    }
-
-    public get() {
-
-        this._orderModel.find((err:any, orders:any) => {
-            if (err) {
-                this._options['res'].end();
-                return console.error(err);
-            }
-
-            this._options['res'].send(orders)
-        })
-    }
-
-    public getById(orderId: string) {
-
-        this._orderModel.findById(orderId, (err:any, order:any) => {
-            if (err) {
-                this._options['res'].end();
-                return console.error(err);
-            }
-
-            this._options['res'].send(order)
-        })
-    }
-
-    public add(orderInput: any) {
-
-        let model = new this._orderModel(orderInput);
-
-        model.save((err: any, order: any) => {
-            if (err){
-                this._options['res'].end();
-                return console.error(err);
-            }
-
-            this._options['res'].send(order)
-        });
+        this._initModel();
     }
 }
 

@@ -2,15 +2,11 @@ import * as bodyParser from 'body-parser';
 import express from 'express';
 import { routes } from './routes';
 import { Store } from './store';
+import {AbstractModel} from './models/abstractModel';
 
 export class Server {
 
-    private _getMethodName = 'get';
-    private _getByIdMethodName = 'getById';
-    private _addMethodName = 'add';
-    private _updateMethodName = 'update';
 
-    private _allowHTTPMethods = ['POST', 'PUT']
 
     public app: express.Application;
 
@@ -87,7 +83,7 @@ export class Server {
             operationParam = null;
 
         // Set response object for each model in order to send the response back
-        model.initModel(
+        model.initOptions(
             {
                 res: options['res']
             }
@@ -118,7 +114,7 @@ export class Server {
         // Get by id
         if (req.method === 'GET' && operationParam === ':id') {
             return {
-                modelMethodName: this._getByIdMethodName,
+                modelMethodName: AbstractModel.getByIdMethodName,
                 requestBody: req.params.id
             };
         }
@@ -126,7 +122,7 @@ export class Server {
         // Get all
         if (req.method === 'GET') {
             return {
-                modelMethodName: this._getMethodName,
+                modelMethodName: AbstractModel.getMethodName,
                 requestBody: null
             };
         }
@@ -136,7 +132,7 @@ export class Server {
             req.body.id = req.params.id;
 
             return {
-                modelMethodName: this._updateMethodName,
+                modelMethodName: AbstractModel.updateMethodName,
                 requestBody: req.body
             }
         }
@@ -144,7 +140,7 @@ export class Server {
         // Create
         if (req.method === 'POST') {
             return {
-                modelMethodName: this._addMethodName,
+                modelMethodName: AbstractModel.addMethodName,
                 requestBody: req.body
             }
         }

@@ -15,8 +15,19 @@ export class Orders extends AbstractModel {
      * @private
      */
     protected _schema: Object = {
-        name: String,
-        description: String
+        authorId: String,
+        authorName: String,
+        location: String,
+        link: String,
+        startTime: Date,
+        orders: [
+            {
+               authorId: String,
+               authorName: String,
+               food: String,
+               price: Number
+            }
+        ]
     };
 
     protected _allowMethods:Array<String> = ['get', 'getById', 'add', 'updateById'];
@@ -25,6 +36,18 @@ export class Orders extends AbstractModel {
         super(store);
 
         this._initModel();
+    }
+
+    protected _buildSchemaMethods(schema: any) {
+
+        schema.methods.toJSON = function() {
+            return {
+                authorName: this.authorName,
+                location: this.location,
+                link: this.link,
+                startTime: this.startTime,
+            }
+        }
     }
 }
 

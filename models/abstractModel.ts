@@ -43,7 +43,14 @@ export class AbstractModel {
 
     protected _initModel() {
         const schema = new this._storeClient.Schema(this._schema, { versionKey: false });
+
+        this._buildSchemaMethods(schema);
         this._model = this._storeClient.model(this._modelName, schema);
+    }
+
+    protected _buildSchemaMethods(schema: any) {
+        // TODO: add methods if needed
+        // see: https://mongoosejs.com/docs/index.html
     }
 
     /**
@@ -91,7 +98,7 @@ export class AbstractModel {
                 return console.error(err);
             }
 
-            this._options['res'].send(entity)
+            this._options['res'].send(entity.toJSON())
         })
     }
 
@@ -115,7 +122,7 @@ export class AbstractModel {
                 return console.error(err);
             }
 
-            this._options['res'].send(entity)
+            this._options['res'].send(entity.toJSON())
         });
     }
 
@@ -137,7 +144,7 @@ export class AbstractModel {
                 return console.error(err);
             }
 
-            this._options['res'].send(entity)
+            this._options['res'].send(entity.toJSON())
         });
     }
 

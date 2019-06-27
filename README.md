@@ -34,9 +34,11 @@ GET localhost:3000/orders/<id>
 
 Add
 ``````
-POST localhost:3000/orders/add
+POST localhost:3000/orders
 {
-	"name": "Test"
+	"authorId": "52353453445",
+	"authorName": "Iulian",
+	"location": "Trattoria 20"
 }
 ``````
 
@@ -44,8 +46,8 @@ Update by id
 ``````
 PUT localhost:3000/orders/5d147d24d2dcf06fcc45f1c0
 {
-	"name": "Test 2",
-	"description": "Lorem ipsum dolor"
+	"authorName": "Iulian",
+    "ocation": "Trattoria 20"
 }
 ``````
 

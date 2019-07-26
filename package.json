@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/iulianlaz/nodejs-rest#readme",
   "dependencies": {
+    "connect-mongo": "^3.0.0",
+    "connect-mongodb-session": "^2.2.0",
     "express": "^4.17.1",
+    "express-session": "^1.16.2",
     "mongoose": "^5.6.1",
     "typescript": "^3.5.2"
   },

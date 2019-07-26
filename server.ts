@@ -3,6 +3,8 @@ import express from 'express';
 import { routes } from './routes';
 import { Store } from './store';
 import {AbstractModel} from './models/abstractModel';
+const session = require('express-session');
+const MongoDBStore = require('connect-mongo')(session);
 
 export class Server {
 
@@ -13,16 +15,44 @@ export class Server {
     constructor() {
         this.app = express();
 
+        const store = new Store();
+
+        this._initConfig(store);
+
         this._preProcessRequest();
 
-        this._buildRoutes().then(() => {
+        this._buildRoutes(store).then(() => {
             // do nothing
         });
 
     }
 
-    private _initConfig(): void {
+    private _initConfig(store: any): void {
         // TODO
+
+        const sessionStore = new MongoDBStore(
+            {
+                mongooseConnection: store.getClient().connection
+            },
+            function(error: any) {
+                // Should have gotten an error
+                console.log(error);
+            });
+
+        sessionStore.on('error', function(error: any) {
+            // Also get an error here
+            console.log(error);
+        });
+
+
+        this.app.use(session({
+            // @todo: fixme secret
+            secret: 'keyboard cat',
+            resave: false,
+            saveUninitialized: true,
+            cookie: { secure: true },
+            store: sessionStore
+        }));
     }
 
     private _preProcessRequest(): void {
@@ -44,10 +74,9 @@ export class Server {
      * @returns {Promise<any>}
      * @private
      */
-    private async _buildRoutes(): Promise<any> {
+    private async _buildRoutes(store: any): Promise<any> {
 
         const serverRoutes = routes.getRoutes();
-        const store = new Store();
 
         for (let route of serverRoutes) {
 

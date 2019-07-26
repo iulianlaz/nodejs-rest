@@ -20,6 +20,7 @@ export class Orders extends AbstractModel {
         location: String,
         link: String,
         startTime: Date,
+        message: String,
         orders: [
             {
                authorId: String,

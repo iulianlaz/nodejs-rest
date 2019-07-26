@@ -22,4 +22,8 @@ export class Store {
     getClient() {
         return this._client;
     }
+
+    getHost() {
+        return this._host;
+    }
 }

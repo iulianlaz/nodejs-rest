@@ -43,10 +43,12 @@ export class Orders extends AbstractModel {
 
         schema.methods.toJSON = function() {
             return {
+                orderId: this.id,
                 authorName: this.authorName,
                 location: this.location,
                 link: this.link,
                 startTime: this.startTime,
+                orders: this.orders
             }
         }
     }

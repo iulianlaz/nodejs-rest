@@ -24,6 +24,7 @@ node build/index.js
 Read
 ``````
 GET localhost:3000/orders
+GET localhost:3000/orders?startTime=today
 ``````
 
 Read by id

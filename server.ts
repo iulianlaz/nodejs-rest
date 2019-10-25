@@ -154,7 +154,7 @@ export class Server {
         if (req.method === 'GET') {
             return {
                 modelMethodName: AbstractModel.getMethodName,
-                requestBody: null
+                requestBody: req.query
             };
         }
 

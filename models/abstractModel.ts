@@ -53,6 +53,12 @@ export class AbstractModel {
         // see: https://mongoosejs.com/docs/index.html
     }
 
+
+    protected _processQuery(query : any) {
+        // TODO: overwrite if needed
+        return query;
+    }
+
     /**
      *
      * @param options
@@ -62,7 +68,7 @@ export class AbstractModel {
         this._options = options;
     }
 
-    public get() {
+    public get(query = {}) {
 
         if (this._allowMethods.indexOf(AbstractModel.getMethodName) === -1) {
             this._options['res'].send({errorMessage: 'Method not allowed.'});
@@ -70,7 +76,9 @@ export class AbstractModel {
             return;
         }
 
-        this._model.find((err:any, entities:any) => {
+        const databaseQuery = this._processQuery(query);
+
+        this._model.find(databaseQuery, (err:any, entities:any) => {
             if (err) {
                 this._options['res'].end();
                 return console.error(err);

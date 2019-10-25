@@ -39,6 +39,28 @@ export class Orders extends AbstractModel {
         this._initModel();
     }
 
+    protected _processQuery(query: any = {}) {
+        const databaseQuery : any = {};
+
+        if (query.hasOwnProperty('startTime')) {
+
+            switch(query['startTime']) {
+                case 'today':
+                    const currentDate = new Date(); // Today
+                    currentDate.setDate(currentDate.getDate() - 1); // Yesterday
+
+                    databaseQuery['startTime'] = { $gte: currentDate };
+
+                    break;
+                case 'past':
+                        break;
+            }
+
+        }
+
+        return databaseQuery;
+    }
+
     protected _buildSchemaMethods(schema: any) {
 
         schema.methods.toJSON = function() {

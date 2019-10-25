@@ -23,15 +23,15 @@ export class Orders extends AbstractModel {
         message: String,
         orders: [
             {
-               authorId: String,
-               authorName: String,
-               food: String,
-               price: Number
+                authorId: String,
+                authorName: String,
+                food: String,
+                price: Number
             }
         ]
     };
 
-    protected _allowMethods:Array<String> = ['get', 'getById', 'add', 'updateById'];
+    protected _allowMethods: Array<String> = ['get', 'getById', 'add', 'updateById'];
 
     protected constructor(store: any) {
         super(store);
@@ -40,20 +40,23 @@ export class Orders extends AbstractModel {
     }
 
     protected _processQuery(query: any = {}) {
-        const databaseQuery : any = {};
+        const databaseQuery: any = {};
 
         if (query.hasOwnProperty('startTime')) {
 
-            switch(query['startTime']) {
+            switch (query['startTime']) {
                 case 'today':
                     const currentDate = new Date(); // Today
                     currentDate.setDate(currentDate.getDate() - 1); // Yesterday
 
-                    databaseQuery['startTime'] = { $gte: currentDate };
+                    databaseQuery['startTime'] = {$gte: currentDate};
 
                     break;
                 case 'past':
-                        break;
+                    // TODO
+                    break;
+                default:
+                    break;
             }
 
         }
@@ -71,8 +74,8 @@ export class Orders extends AbstractModel {
                 link: this.link,
                 startTime: this.startTime,
                 orders: this.orders
-            }
-        }
+            };
+        };
     }
 }
 

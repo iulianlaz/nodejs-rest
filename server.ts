@@ -63,7 +63,7 @@ export class Server {
         this.app.use((req: any, res: any, next: any) => {
             res.header('Access-Control-Allow-Origin', '*');
             res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-            res.header('Access-Control-Allow-Methods', 'POST, PUT, GET');
+            res.header('Access-Control-Allow-Methods', 'POST, PUT, GET, OPTIONS');
 
             next();
         });

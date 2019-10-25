@@ -44,17 +44,21 @@ export class Orders extends AbstractModel {
 
         if (query.hasOwnProperty('startTime')) {
 
+            const currentDate = new Date(); // Today
+
             switch (query['startTime']) {
                 case 'today':
-                    const currentDate = new Date(); // Today
+
                     currentDate.setDate(currentDate.getDate() - 1); // Yesterday
-
                     databaseQuery['startTime'] = {$gte: currentDate};
+                    break;
 
-                    break;
                 case 'past':
-                    // TODO
+
+                    currentDate.setDate(currentDate.getDate() - 1); // Yesterday
+                    databaseQuery['startTime'] = {$lt: currentDate};
                     break;
+
                 default:
                     break;
             }

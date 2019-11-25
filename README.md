@@ -17,6 +17,8 @@ npm run tsc
 Start server
 ------------
 node build/index.js
+OR in background
+node build/index.js > log.txt 2>&1 &
 ``````
 
 **API examples**

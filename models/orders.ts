@@ -31,7 +31,10 @@ export class Orders extends AbstractModel {
             maxlength: 1024,
             required: true
         },
-        startTime: Date,
+        startTime: {
+            type: Date,
+            required: true
+        },
         message: {
             type: String,
             maxlength: 1024
@@ -42,7 +45,6 @@ export class Orders extends AbstractModel {
                 authorName: {
                     type: String,
                     maxlength: 1024,
-                    unique: true,
                     required: true
                 },
                 food: {

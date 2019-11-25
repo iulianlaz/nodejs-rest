@@ -132,7 +132,7 @@ export class Server {
             // Can be one of the following: get(), getById(), add(), update(), delete()
             model[modelMethodName](requestBody);
         } else {
-            console.log('[error] ModelMethodName is not defined.');
+            console.log('[error] ModelMethodName is not defined. ' + JSON.stringify(options['req']['method']));
             options['res'].send({errorMessage: 'An error occured.'});
             return;
         }

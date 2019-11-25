@@ -16,17 +16,44 @@ export class Orders extends AbstractModel {
      */
     protected _schema: Object = {
         authorId: String,
-        authorName: String,
-        location: String,
-        link: String,
+        authorName: {
+            type: String,
+            maxlength: 64,
+            required: true
+        },
+        location: {
+            type: String,
+            maxlength: 1024,
+            required: true
+        },
+        link: {
+            type: String,
+            maxlength: 1024,
+            required: true
+        },
         startTime: Date,
-        message: String,
+        message: {
+            type: String,
+            maxlength: 1024
+        },
         orders: [
             {
                 authorId: String,
-                authorName: String,
-                food: String,
-                price: Number
+                authorName: {
+                    type: String,
+                    maxlength: 1024,
+                    unique: true,
+                    required: true
+                },
+                food: {
+                    type: String,
+                    maxlength: 1024,
+                    required: true
+                },
+                price: {
+                    type: Number,
+                    required: true
+                }
             }
         ]
     };
